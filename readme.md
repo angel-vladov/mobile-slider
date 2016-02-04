@@ -15,9 +15,9 @@ In your web page:
 ```html
 <script src="jquery.js"></script>
 <script src="dist/mobile-slider.min.js"></script>
-<script>
-  jQuery(function ($) {
-    $.awesome(); // "awesome"
+<script type="application/javascript">
+  $(document).ready(function ($) {
+    $('.my-slider').mobileSlider(); // "awesome"
   });
 </script>
 ```
