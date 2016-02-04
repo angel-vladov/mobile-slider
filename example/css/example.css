@@ -1,0 +1,65 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Open Sans', 'Droid Sans', Tahoma, Arial, sans-serif;
+}
+
+.page-header {
+	text-align: center;
+	padding-bottom: 1em;
+}
+
+.page-header .container {
+	border-bottom: 1px solid #EEE;
+}
+
+.page-header h1 {
+	display: inline-block;
+	margin: 0;
+	padding: .55em 0 .9em;
+	font-size: 1.4em;
+	letter-spacing: 2px;
+	font-weight: normal;
+}
+
+.container {
+	display: block;
+	width: 960px;
+	padding: 0 20px;
+	max-width: 100%;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+.list-1 {
+	list-style: none;
+	text-align: center;
+}
+
+.slider-active .list-1 {
+	margin-left: -20px;
+	margin-right: -20px;
+}
+
+.list-1 li {
+	display: inline-block;
+	vertical-align: top;
+	margin: 8px;
+	width: 220px;
+	height: 260px;
+	background-color: #EFEFEF;
+	border: 1px solid #CCC;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.list-1 li span {
+	display: block;
+	padding-top: 100px;
+	font-weight: bold;
+	font-size: 1.2em;
+	letter-spacing: 1px;
+}
