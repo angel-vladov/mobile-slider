@@ -7,6 +7,30 @@
 (function ($) {
 	'use strict';
 
+	function readAttributeOptions($element, opts) {
+		var itemWidth = $element.attr('data-item-width') || $element.attr('item-width');
+		var sliderWhen = $element.attr('data-slider-when') || $element.attr('slider-when');
+
+		if (itemWidth) {
+			opts.itemWidth = itemWidth;
+		}
+
+		if (sliderWhen) {
+			opts.sliderWhen = sliderWhen;
+		}
+	}
+
+	function normalizeOptions(opts) {
+		if (typeof opts.itemWidth === 'string') {
+			var lastChar = opts.itemWidth.charAt(opts.itemWidth.length  - 1);
+
+			if (!isNaN(parseInt(lastChar))) {
+				// Whole string is a number. Append px.
+				opts.itemWidth += 'px';
+			}
+		}
+	}
+
 	$.fn.mobileSlider = function(options) {
 		var opts = $.extend({}, $.fn.mobileSlider.defaults, options);
 
@@ -19,26 +43,13 @@
 			var initialized = false;
 			var edgeOffset = 0;
 
-			function readAttributeOptions() {
-				var itemWidth = $container.attr('data-item-width') || $container.attr('item-width');
-				var sliderWhen = $container.attr('data-slider-when') || $container.attr('slider-when');
-
-				if (itemWidth) {
-					opts.itemWidth = itemWidth;
-				}
-
-				if (sliderWhen) {
-					opts.sliderWhen = sliderWhen;
-				}
-			}
-
 			function initializeNav() {
 				var navMarkup = '<div class="slider-dots-list">';
 
 				$nodes.each(function(index) {
 					var $node = $(this);
 
-					$node.data('c-id', index);
+					$node.data('slide-id', index);
 
 					navMarkup += '<div class="slider-dot" data-node="' + index + '"></div>';
 				});
@@ -76,7 +87,7 @@
 				if (!$lastActiveNode || $lastActiveNode[0] !== $lastMatched[0]) {
 					$lastActiveNode = $lastMatched;
 
-					var nodeIndex = $lastActiveNode.data('c-id');
+					var nodeIndex = $lastActiveNode.data('slide-id');
 					var nodeSelector = '[data-node="' + nodeIndex + '"]';
 
 					$nodes.removeClass('active');
@@ -105,7 +116,7 @@
 				$nav.on('click', '.goto-prev', function(e) {
 					e.preventDefault();
 
-					var currentIndex = $lastActiveNode.data('c-id');
+					var currentIndex = $lastActiveNode.data('slide-id');
 					var prevIndex = currentIndex - 1;
 
 					if (prevIndex < 0) {
@@ -120,7 +131,7 @@
 				$nav.on('click', '.goto-next', function(e) {
 					e.preventDefault();
 
-					var currentIndex = $lastActiveNode.data('c-id');
+					var currentIndex = $lastActiveNode.data('slide-id');
 					var nextIndex = (currentIndex + 1) % $nodes.length;
 
 					scrollToNode($nodes[nextIndex]);
@@ -130,7 +141,7 @@
 			}
 
 			function handleOnResize() {
-				var screenWidth = $(window).width();
+				var screenWidth = $(opts.container).width();
 				var sliderIsActive = $container.hasClass('slider-active');
 
 				if (screenWidth <= opts.sliderWhen) {
@@ -172,10 +183,8 @@
 				$viewPane.addClass('slider-content');
 
 				if ($nodes.length > 0) {
-					var itemWidth = $container.attr('data-item-width') || $container.attr('item-width');
-
-					if (itemWidth) {
-						$nodes.width(itemWidth);
+					if (opts.itemWidth) {
+						$nodes.width(opts.itemWidth);
 					}
 
 					initializeNav();
@@ -191,7 +200,12 @@
 				}
 			}
 
-			readAttributeOptions();
+			if (!$container.hasClass('.mobile-slider')) {
+				$container.addClass('mobile-slider');
+			}
+
+			readAttributeOptions($container, opts);
+			normalizeOptions(opts);
 
 			$(window).on('resize orientationchange', handleOnResize);
 			handleOnResize();
@@ -200,7 +214,8 @@
 
 	$.fn.mobileSlider.defaults = {
 		itemWidth: null,
-		sliderWhen: 1024
+		sliderWhen: 1024,
+		container: window
 	};
 
 	$(document).ready(function() {
