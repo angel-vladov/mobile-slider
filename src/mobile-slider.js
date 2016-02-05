@@ -100,13 +100,15 @@
 			/**
 			 * Scrolls to a specific node.
 			 * @param {*} $node
-			 * @param {Boolean} animate Default is true
+			 * @param {Boolean} [animate] Default is true
 			 */
 			function scrollToNode($node, animate) {
 				$node = $($node);
 
-				var widthDiff = ($viewPane.width() - $node.width()) / 2;
-				var scrollValue = $node.position().left + $viewPane.scrollLeft() - widthDiff;
+				var nodeWidth = $node.width();
+				var nodeMargin = $node.outerWidth(true) - nodeWidth;
+				var widthDiff = ($viewPane.width() - nodeWidth) / 2;
+				var scrollValue = $node.position().left + $viewPane.scrollLeft() - widthDiff + nodeMargin;
 				var animConfig = {
 					duration: '400ms'
 				};
@@ -164,6 +166,10 @@
 						edgeOffset = ($viewPane.width() - $nodes.first().width()) / 2;
 						$nodes.first().css('margin-left', edgeOffset + 'px');
 						$nodes.last().css('margin-right', edgeOffset + 'px');
+
+						// Center the slider on the middle node
+						var midNode = $nodes[Math.ceil($nodes.length / 2)];
+						scrollToNode(midNode, false);
 					}
 				} else {
 					if (sliderIsActive) {
@@ -203,9 +209,6 @@
 					detectScrollPosition();
 
 					handleNavButtons();
-
-					var midNode = $nodes[Math.ceil($nodes.length / 2)];
-					scrollToNode(midNode, false);
 				}
 			}
 
