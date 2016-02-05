@@ -1,6 +1,6 @@
 # Mobile Slider
 
-> Convert a list of items into a slider (carousel) when viewed on mobile devices.
+> Converts a list of items into a slider (carousel) when viewed on mobile devices.
 
 
 ## Getting Started
@@ -53,6 +53,7 @@ Type: `number`
 Default: `1024`  
 
 Min window width needed for the mobile slider to apply and change the layout of the element it's applied to. Nothing will happen if the browser window is wider than `sliderWhen` width _(1024px with default value)_.
+You can use `sliderWhen` and change the breakpoint depending on your design. For example f you want the slider to apply only for mobilePhones and not tablets you can set the value to 480px.
 
 #### itemWidth
 
@@ -85,7 +86,7 @@ Example:
 </div>
 ```
 
-* You can also attach the plugin manually using javascript. `.mobile-slider` will be attached for you by the plugin.
+* You can also attach the plugin manually using javascript. `.mobile-slider` class will be attached for you by the plugin.
 Example:  
 
 ```html

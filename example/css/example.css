@@ -25,6 +25,24 @@ body {
 	font-weight: normal;
 }
 
+.section {
+	float: left;
+	width: 100%;
+	padding-bottom: 1.5em;
+}
+
+.section::after {
+	content: "";
+	clear: both;
+	display: table;
+	height: 0;
+}
+
+.section:nth-child(2n+1) {
+	background-color: #444;
+	color: #FFF;
+}
+
 .container {
 	display: block;
 	width: 960px;
@@ -52,6 +70,7 @@ body {
 	height: 260px;
 	background-color: #EFEFEF;
 	border: 1px solid #CCC;
+	color: #222;
 	box-sizing: border-box;
 	overflow: hidden;
 }
@@ -62,4 +81,27 @@ body {
 	font-weight: bold;
 	font-size: 1.2em;
 	letter-spacing: 1px;
+}
+
+/* SLIDER ARROWS */
+/* Shows arrows on each side of the slider */
+.mobile-slider.show-arrows .slider-next,
+.mobile-slider.show-arrows .slider-prev {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	top: 50%;
+	margin-top: -24px;
+
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.mobile-slider.show-arrows .slider-next {
+	background-image: url("../img/right-arrow@2x.png");
+	right: 0;
+}
+
+.mobile-slider.show-arrows .slider-prev {
+	background-image: url("../img/left-arrow@2x.png");
+	left: 0;
 }

@@ -44,7 +44,7 @@
 			var edgeOffset = 0;
 
 			function initializeNav() {
-				var navMarkup = '<div class="slider-dots-list">';
+				var navMarkup = '<div class="slider-dots">';
 
 				$nodes.each(function(index) {
 					var $node = $(this);
@@ -57,8 +57,8 @@
 				navMarkup += '</ul>';
 
 				$nav.html(
-					'<a href="" class="goto-prev"></a>' +
-					'<a href="" class="goto-next"></a>' +
+					'<a href="" class="slider-prev"></a>' +
+					'<a href="" class="slider-next"></a>' +
 					navMarkup
 				);
 
@@ -97,23 +97,33 @@
 				}
 			}
 
-			function scrollToNode($node) {
+			/**
+			 * Scrolls to a specific node.
+			 * @param {*} $node
+			 * @param {Boolean} animate Default is true
+			 */
+			function scrollToNode($node, animate) {
 				$node = $($node);
 
 				var widthDiff = ($viewPane.width() - $node.width()) / 2;
+				var scrollValue = $node.position().left + $viewPane.scrollLeft() - widthDiff;
 				var animConfig = {
 					duration: '400ms'
 				};
 
-				$viewPane.animate({
-					scrollLeft: $node.position().left + $viewPane.scrollLeft() - widthDiff
-				}, animConfig);
+				if (animate !== false) {
+					$viewPane.animate({
+						scrollLeft: scrollValue
+					}, animConfig);
+				} else {
+					$viewPane.scrollLeft(scrollValue);
+				}
 
 				detectScrollPosition();
 			}
 
 			function handleNavButtons() {
-				$nav.on('click', '.goto-prev', function(e) {
+				$nav.on('click', '.slider-prev', function(e) {
 					e.preventDefault();
 
 					var currentIndex = $lastActiveNode.data('slide-id');
@@ -128,11 +138,11 @@
 					return false;
 				});
 
-				$nav.on('click', '.goto-next', function(e) {
+				$nav.on('click', '.slider-next', function(e) {
 					e.preventDefault();
 
 					var currentIndex = $lastActiveNode.data('slide-id');
-					var nextIndex = (currentIndex + 1) % $nodes.length;
+					var nextIndex = (currentIndex + 1) % $nodes.lenth;
 
 					scrollToNode($nodes[nextIndex]);
 
@@ -195,8 +205,8 @@
 
 					handleNavButtons();
 
-					var midNode = $nodes[Math.ceil($nodes.length / 2) - 1];
-					scrollToNode(midNode);
+					var midNode = $nodes[Math.ceil($nodes.length / 2)];
+					scrollToNode(midNode, false);
 				}
 			}
 

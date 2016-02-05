@@ -6,7 +6,7 @@
 
 @media only screen and (max-width: 1024px) {
 	.mobile-slider {
-
+		position: relative;
 	}
 
 	.mobile-slider .slider-content {
