@@ -103,7 +103,7 @@ module.exports = function (grunt) {
 					cwd: 'dist/',
 					src: 'jquery.<%= pkg.name %>.css', // ['*.css', '!*.min.css'],
 					dest: 'dist/',
-					ext: '.min.css'
+					ext: '.<%= pkg.name %>.min.css'
 				}]
 			}
 		}

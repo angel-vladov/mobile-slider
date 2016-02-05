@@ -1,15 +1,32 @@
-/*! mobile-slider - v0.1.0 - 2016-02-04
+/*! mobile-slider - v0.1.0 - 2016-02-05
 * Copyright (c) 2016 Angel Vladov; Licensed MIT */
 (function ($) {
 	'use strict';
 
-	$.fn.mobileSlider = function() {
+	$.fn.mobileSlider = function(options) {
+		var opts = $.extend({}, $.fn.mobileSlider.defaults, options);
+
 		return this.each(function() {
 			var $container = $(this);
 			var $viewPane = null;
 			var $nodes = null;
 			var $nav = null;
 			var $lastActiveNode = null;
+			var initialized = false;
+			var edgeOffset = 0;
+
+			function readAttributeOptions() {
+				var itemWidth = $container.attr('data-item-width') || $container.attr('item-width');
+				var sliderWhen = $container.attr('data-slider-when') || $container.attr('slider-when');
+
+				if (itemWidth) {
+					opts.itemWidth = itemWidth;
+				}
+
+				if (sliderWhen) {
+					opts.sliderWhen = sliderWhen;
+				}
+			}
 
 			function initializeNav() {
 				var navMarkup = '<div class="slider-dots-list">';
@@ -65,10 +82,6 @@
 				}
 			}
 
-			function listenScrollPosition() {
-				$viewPane.on('scroll', detectScrollPosition);
-			}
-
 			function scrollToNode($node) {
 				$node = $($node);
 
@@ -112,37 +125,83 @@
 				});
 			}
 
+			function handleOnResize() {
+				var screenWidth = $(window).width();
+				var sliderIsActive = $container.hasClass('slider-active');
+
+				if (screenWidth <= opts.sliderWhen) {
+					if (!sliderIsActive) {
+						initialize();
+
+						// Modify first/last node
+						edgeOffset = ($viewPane.width() - $nodes.first().width()) / 2;
+						$nodes.first().css('margin-left', edgeOffset + 'px');
+						$nodes.last().css('margin-right', edgeOffset + 'px');
+
+						$container.addClass('slider-active');
+					}
+				} else {
+					if (sliderIsActive) {
+						$nodes.first().css('margin-left', '0px');
+						$nodes.last().css('margin-right', '0px');
+
+						$container.removeClass('slider-active');
+					}
+
+				}
+			}
+
+			/**
+			 * Will be called on initialization
+			 */
 			function initialize() {
-				$viewPane = $container.find('.slider-content');
+				if (initialized) {
+					return;
+				}
+
+				initialized = true;
+				$viewPane = $container.find('ul');
 				$nodes = $viewPane.find('li');
 				$nav = $('<div class="slider-nav"></div>').appendTo($container);
 
-				if ($nodes.length > 0) {
-					var liWidth = $container.attr('data-li-width') || $container.attr('li-width');
+				// Makes styling easier
+				$viewPane.addClass('slider-content');
 
-					if (liWidth) {
-						$nodes.width(liWidth);
+				if ($nodes.length > 0) {
+					var itemWidth = $container.attr('data-item-width') || $container.attr('item-width');
+
+					if (itemWidth) {
+						$nodes.width(itemWidth);
 					}
 
-					// Modify first/last node
-					var edgeOffset = ($viewPane.width() - $nodes.first().width()) / 2;
-					var midNode = $nodes[Math.ceil($nodes.length / 2) - 1];
-
-					$nodes.first().css('margin-left', edgeOffset + 'px');
-					$nodes.last().css('margin-right', edgeOffset + 'px');
-
 					initializeNav();
-					listenScrollPosition();
+
+					// Listen for scroll position changes and update initial value
+					$viewPane.on('scroll', detectScrollPosition);
 					detectScrollPosition();
+
 					handleNavButtons();
 
+					var midNode = $nodes[Math.ceil($nodes.length / 2) - 1];
 					scrollToNode(midNode);
 				}
 			}
 
-			initialize();
+			readAttributeOptions();
+
+			$(window).on('resize orientationchange', handleOnResize);
+			handleOnResize();
 		});
 	};
+
+	$.fn.mobileSlider.defaults = {
+		itemWidth: null,
+		sliderWhen: 1024
+	};
+
+	$(document).ready(function() {
+		$('.mobile-slider').mobileSlider();
+	});
 
 	//$.fn.mobileSlider = function () {
 	//	return this.each(function (i) {
