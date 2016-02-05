@@ -152,27 +152,26 @@
 
 			function handleOnResize() {
 				var screenWidth = $(opts.container).width();
-				var sliderIsActive = $container.hasClass('slider-active');
+				var sliderIsActive = $container.hasClass('mobile-slider-active');
 
 				if (screenWidth <= opts.sliderWhen) {
 					if (!sliderIsActive) {
+						$container.addClass('mobile-slider-active');
+
 						initialize();
 
 						// Modify first/last node
 						edgeOffset = ($viewPane.width() - $nodes.first().width()) / 2;
 						$nodes.first().css('margin-left', edgeOffset + 'px');
 						$nodes.last().css('margin-right', edgeOffset + 'px');
-
-						$container.addClass('slider-active');
 					}
 				} else {
 					if (sliderIsActive) {
-						$nodes.first().css('margin-left', '0px');
-						$nodes.last().css('margin-right', '0px');
+						$nodes.first().css('margin-left', '');
+						$nodes.last().css('margin-right', '');
 
-						$container.removeClass('slider-active');
+						$container.removeClass('mobile-slider-active');
 					}
-
 				}
 			}
 
@@ -210,7 +209,7 @@
 				}
 			}
 
-			if (!$container.hasClass('.mobile-slider')) {
+			if (!$container.hasClass('mobile-slider')) {
 				$container.addClass('mobile-slider');
 			}
 
