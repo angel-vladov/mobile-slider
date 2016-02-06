@@ -31,6 +31,10 @@
 		}
 	}
 
+	function elementWidth($element) {
+		return $element.outerWidth(true);
+	}
+
 	$.fn.mobileSlider = function(options) {
 		var opts = $.extend({}, $.fn.mobileSlider.defaults, options);
 
@@ -105,13 +109,17 @@
 			function scrollToNode($node, animate) {
 				$node = $($node);
 
-				var nodeWidth = $node.width();
-				var nodeMargin = $node.outerWidth(true) - nodeWidth;
-				var widthDiff = ($viewPane.width() - nodeWidth) / 2;
-				var scrollValue = $node.position().left + $viewPane.scrollLeft() - widthDiff + nodeMargin;
+				var viewPaneWidth = elementWidth($viewPane);
+				var nodeWidth = elementWidth($node);
+				var nodeLeft = $node.position().left;
+				var scrollValue = $viewPane.scrollLeft();
+
+				var widthDiff = (viewPaneWidth - nodeWidth) / 2;
 				var animConfig = {
 					duration: '400ms'
 				};
+
+				scrollValue += nodeLeft - widthDiff;
 
 				if (animate !== false) {
 					$viewPane.animate({
@@ -168,7 +176,7 @@
 						$nodes.last().css('margin-right', edgeOffset + 'px');
 
 						// Center the slider on the middle node
-						var midNode = $nodes[Math.ceil($nodes.length / 2)];
+						var midNode = $nodes[Math.ceil(($nodes.length - 1) / 2)];
 						scrollToNode(midNode, false);
 					}
 				} else {
