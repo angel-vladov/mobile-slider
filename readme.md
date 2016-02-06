@@ -26,52 +26,32 @@ In your web page import the javascript file and the stylesheet that come with th
 </script>
 ```
 
+### Markup
 
-### Options
+Mobile Slider requires the following markup structure:
 
-You can pass options to the mobile slider by using html attributes or via an object.
-
-_Using an object:_ 
-```javascript
-$('.my-slider').mobileSlider({
-    itemWidth: 260,
-    sliderWhen: 1024
-});
-```
-
-_Using attributes:_
 ```html
-<div class="mobile-slider" data-item-width="260" data-slider-when="1024">
+<div class="mobile-slider">
+    <ul>
+        <li>...</li>
+        <li>...</li>
+        <li>...</li>
+        ...
+    </ul>
+</div>
 ```
-Prefixing attributes with _"data-"_ is optional. 
-All the options can be passed as attributes.
 
-Supported options:
-#### sliderWhen
+Where:
+* The wrapper `div` is the element on which the slider will be applied.
+* `ul` will be the viewport which will scroll horizontally.
+* `li` are the items in the slider. They must have a fixed width. There are no limitation on the content.
 
-Type: `number`  
-Default: `1024`  
-
-Min window width needed for the mobile slider to apply and change the layout of the element it's applied to. Nothing will happen if the browser window is wider than `sliderWhen` width _(1024px with default value)_.
-You can use `sliderWhen` and change the breakpoint depending on your design. For example f you want the slider to apply only for mobilePhones and not tablets you can set the value to 480px.
-
-#### itemWidth
-
-Type: `number` or `string`  
-Example: `260`, `"260px"`, `"4.2em"`, `"80%"`  
-
-If you need a specific width to be set on each list item when the mobile slider is active you can use this option. Numeric values are in pixels. If you need a value in em or percents pass a string.
-
-#### container
-
-Type: `jQuery`, `DOM Element`, a `string` selector    
-Default: `window`  
-
-The plugin will use this selector/element width and check it against `itemWidth` in order to determine when the slider should be active.
+You can find **examples** in the examples folder.
 
 ### Usage
 
-* The plugin will be attached automatically on all elements that have `.mobile-slider` class. You can use attributes to set options values.
+* The plugin will be attached automatically on all elements that have `.mobile-slider` class. You can use attributes to set options values. 
+Prefixing attributes with _"data-"_ is optional. All the options can be passed as attributes.
 Example:  
 
 ```html
@@ -106,6 +86,34 @@ Example:
     });
 </script>
 ```
+
+### Options
+
+_All options can be passed as an html attribute by splitting the lowerCamelCase and adding a hyphen._
+
+Supported options:
+#### sliderWhen
+
+Type: `number`  
+Default: `1024`  
+
+Min window width needed for the mobile slider to apply and change the layout of the element it's applied to. Nothing will happen if the browser window is wider than `sliderWhen` width _(1024px with default value)_.
+You can use `sliderWhen` and change the breakpoint depending on your design. For example f you want the slider to apply only for mobilePhones and not tablets you can set the value to 480px.
+
+#### itemWidth
+
+Type: `number` or `string`  
+Example: `260`, `"260px"`, `"4.2em"`, `"80%"`  
+
+If you need a specific width to be set on each list item when the mobile slider is active you can use this option. Numeric values are in pixels. If you need a value in em or percents pass a string.
+
+#### container
+
+Type: `jQuery`, `DOM Element`, a `string` selector    
+Default: `window`  
+
+The plugin will use this selector/element width and check it against `itemWidth` in order to determine when the slider should be active.
+
 
 
 ## License
