@@ -1,4 +1,4 @@
-/*! mobile-slider - v0.1.0 - 2016-02-05
+/*! mobile-slider - v0.1.0 - 2016-02-06
 * Copyright (c) 2016 Angel Vladov; Licensed MIT */
 (function ($) {
 	'use strict';
@@ -25,6 +25,10 @@
 				opts.itemWidth += 'px';
 			}
 		}
+	}
+
+	function elementWidth($element) {
+		return $element.outerWidth(true);
 	}
 
 	$.fn.mobileSlider = function(options) {
@@ -96,16 +100,22 @@
 			/**
 			 * Scrolls to a specific node.
 			 * @param {*} $node
-			 * @param {Boolean} animate Default is true
+			 * @param {Boolean} [animate] Default is true
 			 */
 			function scrollToNode($node, animate) {
 				$node = $($node);
 
-				var widthDiff = ($viewPane.width() - $node.width()) / 2;
-				var scrollValue = $node.position().left + $viewPane.scrollLeft() - widthDiff;
+				var viewPaneWidth = elementWidth($viewPane);
+				var nodeWidth = elementWidth($node);
+				var nodeLeft = $node.position().left;
+				var scrollValue = $viewPane.scrollLeft();
+
+				var widthDiff = (viewPaneWidth - nodeWidth) / 2;
 				var animConfig = {
 					duration: '400ms'
 				};
+
+				scrollValue += nodeLeft - widthDiff;
 
 				if (animate !== false) {
 					$viewPane.animate({
@@ -138,7 +148,7 @@
 					e.preventDefault();
 
 					var currentIndex = $lastActiveNode.data('slide-id');
-					var nextIndex = (currentIndex + 1) % $nodes.lenth;
+					var nextIndex = (currentIndex + 1) % $nodes.length;
 
 					scrollToNode($nodes[nextIndex]);
 
@@ -148,10 +158,12 @@
 
 			function handleOnResize() {
 				var screenWidth = $(opts.container).width();
-				var sliderIsActive = $container.hasClass('slider-active');
+				var sliderIsActive = $container.hasClass('mobile-slider-active');
 
 				if (screenWidth <= opts.sliderWhen) {
 					if (!sliderIsActive) {
+						$container.addClass('mobile-slider-active');
+
 						initialize();
 
 						// Modify first/last node
@@ -159,16 +171,17 @@
 						$nodes.first().css('margin-left', edgeOffset + 'px');
 						$nodes.last().css('margin-right', edgeOffset + 'px');
 
-						$container.addClass('slider-active');
+						// Center the slider on the middle node
+						var midNode = $nodes[Math.ceil(($nodes.length - 1) / 2)];
+						scrollToNode(midNode, false);
 					}
 				} else {
 					if (sliderIsActive) {
-						$nodes.first().css('margin-left', '0px');
-						$nodes.last().css('margin-right', '0px');
+						$nodes.first().css('margin-left', '');
+						$nodes.last().css('margin-right', '');
 
-						$container.removeClass('slider-active');
+						$container.removeClass('mobile-slider-active');
 					}
-
 				}
 			}
 
@@ -200,13 +213,10 @@
 					detectScrollPosition();
 
 					handleNavButtons();
-
-					var midNode = $nodes[Math.ceil($nodes.length / 2)];
-					scrollToNode(midNode, false);
 				}
 			}
 
-			if (!$container.hasClass('.mobile-slider')) {
+			if (!$container.hasClass('mobile-slider')) {
 				$container.addClass('mobile-slider');
 			}
 

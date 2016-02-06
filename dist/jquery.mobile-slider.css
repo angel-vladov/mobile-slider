@@ -1,63 +1,60 @@
-/*! mobile-slider - v0.1.0 - 2016-02-05
+/*! mobile-slider - v0.1.0 - 2016-02-06
 * Copyright (c) 2016 Angel Vladov; Licensed MIT */
-@media only screen and (min-width: 1025px) {
-	.slider-nav {
-		display: none;
-	}
+.mobile-slider .slider-nav {
+	display: none;
 }
 
-@media only screen and (max-width: 1024px) {
-	.mobile-slider {
-		position: relative;
-	}
+.mobile-slider-active {
+	position: relative;
+}
 
-	.mobile-slider .slider-content {
-		-webkit-overflow-scrolling: touch;
+.mobile-slider-active .slider-content {
+	-webkit-overflow-scrolling: touch;
 
-		white-space: nowrap;
-		overflow-x: auto;
-		overflow-y: hidden;
-		padding: 0;
-	}
+	white-space: nowrap;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 0;
+}
 
-	.mobile-slider .slider-content::-webkit-scrollbar {
-		display: none !important;
-	}
+.mobile-slider-active .slider-content::-webkit-scrollbar {
+	display: none !important;
+}
 
-	.mobile-slider .slider-content li {
-		display: inline-block;
-		vertical-align: top;
-		overflow: visible;
-		float: none;
-		/*width: x; // Width will come from the js file. */
-	}
+.mobile-slider-active .slider-content li {
+	display: inline-block;
+	vertical-align: top;
+	overflow: visible;
+	float: none;
+	/*width: x; // Width will come from the js file. */
+}
 
-	.mobile-slider .slider-nav {
-		padding-top: 4px;
-		font-size: 0;
-		text-align: center;
-	}
+.mobile-slider-active .slider-nav {
+	display: block;
+	padding-top: 4px;
+	font-size: 0;
+	text-align: center;
+}
 
-	.mobile-slider .slider-dot {
-		display: inline-block;
-		float: none;
-		margin: 0 6px;
-		width: 20px;
-		height: 20px;
-		border-radius: 10px;
-		border: 1px solid rgba(0, 0, 0, .2);
-		background-color: rgba(74, 73, 74, 0.2);
-		box-sizing: border-box;
+.mobile-slider-active .slider-dot {
+	display: inline-block;
+	float: none;
+	margin: 0 6px;
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	border: 1px solid rgba(0, 0, 0, .2);
+	background-color: rgba(74, 73, 74, 0.2);
+	box-sizing: border-box;
 
-		-webkit-transition: all .2s ease-in-out;
-		        transition: all .2s ease-in-out;
-	}
+	-webkit-transition: all .2s ease-in-out;
+	        transition: all .2s ease-in-out;
+}
 
-	.mobile-slider.light-dots .slider-dot {
-		background-color: rgba(255, 255, 255, .2);
-	}
+.mobile-slider-active.light-dots .slider-dot {
+	background-color: rgba(255, 255, 255, .2);
+}
 
-	.mobile-slider .slider-nav .slider-dot.active {
-		background-color: #eac042;
-	}
+.mobile-slider-active .slider-nav .slider-dot.active {
+	background-color: #eac042;
 }
