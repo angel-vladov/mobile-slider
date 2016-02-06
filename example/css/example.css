@@ -52,9 +52,11 @@ body {
 	box-sizing: border-box;
 }
 
-.list-1 {
+.list-1,
+.list-2 {
 	list-style: none;
 	text-align: center;
+	padding: 0;
 }
 
 .mobile-slider-active .list-1 {
@@ -62,6 +64,7 @@ body {
 	margin-right: -20px;
 }
 
+.list-2 li,
 .list-1 li {
 	display: inline-block;
 	vertical-align: top;
@@ -75,12 +78,31 @@ body {
 	overflow: hidden;
 }
 
+.list-2 li span,
 .list-1 li span {
 	display: block;
 	padding-top: 100px;
 	font-weight: bold;
 	font-size: 1.2em;
 	letter-spacing: 1px;
+}
+
+#forced-container {
+	display: block;
+	width: 400px;
+	max-width: 100%;
+	display: block;
+	margin: 0 auto;
+	border: 1px solid rgba(255, 255, 255, .2);
+	padding-bottom: 1em;
+}
+
+#forced-container .slider-next {
+	right: 14px;
+}
+
+#forced-container .slider-prev {
+	left: 14px;
 }
 
 /* SLIDER ARROWS */

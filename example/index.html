@@ -108,5 +108,43 @@
 			</div>
 		</div>
 	</section>
+
+	<section class="section">
+		<div class="container">
+			<h3>Mobile Slider preview</h3>
+			<p>
+				Forced mobile slider view. This is how it will look on mobile devices.
+			</p>
+
+			<div id="forced-container">
+				<div id="forced-slider" class="mobile-slider light-dots show-arrows" data-item-width="260">
+					<ul class="list-2">
+						<li>
+							<span>Slide 1</span>
+						</li>
+						<li>
+							<span>Slide 2</span>
+						</li>
+						<li>
+							<span>Slide 3</span>
+						</li>
+						<li>
+							<span>Slide 4</span>
+						</li>
+						<li>
+							<span>Slide 5</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<script type="application/javascript">
+				$('#forced-slider').mobileSlider({
+					sliderWhen: 1200,
+					container: '#forced-container'
+				});
+			</script>
+		</div>
+	</section>
 </body>
 </html>
