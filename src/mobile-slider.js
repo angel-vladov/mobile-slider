@@ -152,7 +152,7 @@
 					e.preventDefault();
 
 					var currentIndex = $lastActiveNode.data('slide-id');
-					var nextIndex = (currentIndex + 1) % $nodes.lenth;
+					var nextIndex = (currentIndex + 1) % $nodes.length;
 
 					scrollToNode($nodes[nextIndex]);
 
