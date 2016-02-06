@@ -1,4 +1,4 @@
-# Mobile Slider
+# Mobile Slider [![Build Status](https://travis-ci.org/angel-vladov/mobile-slider.svg?branch=master)](https://travis-ci.org/angel-vladov/mobile-slider)
 
 > Converts a list of items into a slider (carousel) when viewed on mobile devices.
 
