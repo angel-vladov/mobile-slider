@@ -13,7 +13,7 @@
   "repository": "angel-vladov/mobile-slider",
   "license": "MIT",
   "scripts": {
-    "test": "grunt"
+    "test": "grunt test"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
