@@ -9,5 +9,10 @@
 	"devDependencies": {
 		"qunit": "~1.12.0",
 		"jquery": "latest"
-	}
+	},
+	"ignore": [
+		"node_modules",
+		"bower_components"
+	],
+	"license": "MIT"
 }
