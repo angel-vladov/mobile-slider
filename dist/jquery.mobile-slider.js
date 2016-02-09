@@ -1,4 +1,4 @@
-/*! mobile-slider - v0.1.0 - 2016-02-06
+/*! mobile-slider - v0.1.0 - 2016-02-09
 * Copyright (c) 2016 Angel Vladov; Licensed MIT */
 (function ($) {
 	'use strict';
@@ -176,7 +176,7 @@
 						scrollToNode(midNode, false);
 					}
 				} else {
-					if (sliderIsActive) {
+					if (sliderIsActive && initialized) {
 						$nodes.first().css('margin-left', '');
 						$nodes.last().css('margin-right', '');
 

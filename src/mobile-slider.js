@@ -180,7 +180,7 @@
 						scrollToNode(midNode, false);
 					}
 				} else {
-					if (sliderIsActive) {
+					if (sliderIsActive && initialized) {
 						$nodes.first().css('margin-left', '');
 						$nodes.last().css('margin-right', '');
 
