@@ -1,0 +1,88 @@
+.list-1,
+.list-2 {
+	list-style: none;
+	text-align: center;
+	padding: 0;
+}
+
+.mobile-slider-active .list-1 {
+	margin-left: -20px;
+	margin-right: -20px;
+}
+
+.list-2 li,
+.list-1 li {
+	display: inline-block;
+	vertical-align: top;
+	margin: 8px;
+	width: 220px;
+	height: 260px;
+	background-color: #EFEFEF;
+	border: 1px solid #CCC;
+	color: #222;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.list-2 li span,
+.list-1 li span {
+	display: block;
+	padding-top: 100px;
+	font-weight: bold;
+	font-size: 1.2em;
+	letter-spacing: 1px;
+}
+
+.mobile-slider-active {
+	margin-bottom: 30px;
+}
+
+.mobile-slider-active .list-1,
+.mobile-slider-active .list-2 {
+	margin-bottom: 0;
+}
+
+#forced-container {
+	display: block;
+	width: 400px;
+	max-width: 100%;
+	display: block;
+	margin: 0 auto 30px;
+	border: 1px solid rgba(255, 255, 255, .2);
+	padding-bottom: 1em;
+}
+
+#forced-slider {
+	margin-bottom: 0;
+}
+
+#forced-container .slider-next {
+	right: 14px;
+}
+
+#forced-container .slider-prev {
+	left: 14px;
+}
+
+/* SLIDER ARROWS */
+/* Shows arrows on each side of the slider */
+.mobile-slider.show-arrows .slider-next,
+.mobile-slider.show-arrows .slider-prev {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	top: 50%;
+	margin-top: -24px;
+
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.mobile-slider.show-arrows .slider-next {
+	background-image: url("../img/right-arrow@2x.png");
+	right: 0;
+}
+
+.mobile-slider.show-arrows .slider-prev {
+	background-image: url("../img/left-arrow@2x.png");
+	left: 0;
+}
