@@ -26,6 +26,9 @@ In your web page import the javascript file and the stylesheet that come with th
 </script>
 ```
 
+####Install with Bower
+`bower install mobile-slider`
+
 ### Markup
 
 Mobile Slider requires the following markup structure:
