@@ -23,7 +23,7 @@
 	display: inline-block;
 	vertical-align: top;
 	overflow: visible;
-	float: none;
+	float: none !important;
 	/*width: x; // Width will come from the js file. */
 }
 

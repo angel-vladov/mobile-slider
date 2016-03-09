@@ -1,6 +1,6 @@
 {
 	"name": "mobile-slider",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"dependencies": {},
 	"main": [
 		"dist/jquery.mobile-slider.js",

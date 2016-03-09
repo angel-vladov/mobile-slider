@@ -1,4 +1,4 @@
-/*! mobile-slider - v0.1.0 - 2016-02-09
+/*! mobile-slider - v0.1.0 - 2016-03-09
 * Copyright (c) 2016 Angel Vladov; Licensed MIT */
 .mobile-slider .slider-nav {
 	display: none;
@@ -25,7 +25,7 @@
 	display: inline-block;
 	vertical-align: top;
 	overflow: visible;
-	float: none;
+	float: none !important;
 	/*width: x; // Width will come from the js file. */
 }
 
