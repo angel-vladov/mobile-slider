@@ -10,6 +10,7 @@
 	function readAttributeOptions($element, opts) {
 		var itemWidth = $element.attr('data-item-width') || $element.attr('item-width');
 		var sliderWhen = $element.attr('data-slider-when') || $element.attr('slider-when');
+		var startAt = $element.attr('data-start-at') || $element.attr('start-at');
 
 		if (itemWidth) {
 			opts.itemWidth = itemWidth;
@@ -17,6 +18,10 @@
 
 		if (sliderWhen) {
 			opts.sliderWhen = sliderWhen;
+		}
+
+		if (startAt) {
+			opts.startAt = startAt;
 		}
 	}
 
@@ -160,6 +165,46 @@
 				});
 			}
 
+			function startAtIndex(startValue) {
+				var nodesCount = $nodes.length;
+				var index = 0;
+
+				if (typeof startValue === 'string') {
+					switch (startValue) {
+						case 'middle':
+							index = Math.ceil(($nodes.length - 1) / 2);
+							break;
+
+						case 'first':
+							index = 0;
+							break;
+
+						case 'last':
+							index = $nodes.length - 1;
+							break;
+
+						default:
+							index = parseInt(opts.startAt);
+					}
+				} else if (typeof startValue === 'number') {
+					index = startValue;
+				} else if (jQuery.isFunction(startValue)) {
+					index = startAtIndex(startValue(opts, nodesCount));
+				}
+
+				if (isNaN(index)) {
+					index = 0;
+				} else if (index >= nodesCount) {
+					index = nodesCount - 1;
+				}
+
+				while (index < 0) {
+					index = nodesCount - index;
+				}
+
+				return index;
+			}
+
 			function handleOnResize() {
 				var screenWidth = $(opts.container).width();
 				var sliderIsActive = $container.hasClass('mobile-slider-active');
@@ -176,7 +221,7 @@
 						$nodes.last().css('margin-right', edgeOffset + 'px');
 
 						// Center the slider on the middle node
-						var midNode = $nodes[Math.ceil(($nodes.length - 1) / 2)];
+						var midNode = $nodes[startAtIndex(opts.startAt)];
 						scrollToNode(midNode, false);
 					}
 				} else {
@@ -234,6 +279,7 @@
 
 	$.fn.mobileSlider.defaults = {
 		itemWidth: null,
+		startAt: 'middle',
 		sliderWhen: 1024,
 		container: window
 	};

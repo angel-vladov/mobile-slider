@@ -110,6 +110,18 @@ Example: `260`, `"260px"`, `"4.2em"`, `"80%"`
 
 If you need a specific width to be set on each list item when the mobile slider is active you can use this option. Numeric values are in pixels. If you need a value in em or percents pass a string.
 
+### startAt
+Type: `number`, `string` or `function`
+Default: `middle`
+
+By default the slider start with the middle item center on screen. You can change that with this property. The matched item will be centered inside the slider.
+
+* `"first"` - First item will be centered
+* `"last"` - Last item will be centered
+* `"middle"` - Middle element will be centered (_default value_)
+* Numeric value - Item index
+* `function(sliderOptions, itemsCount)` - Function with 2 params slider options and itemsCount. Should return a valid item index
+
 #### container
 
 Type: `jQuery`, `DOM Element`, a `string` selector    
